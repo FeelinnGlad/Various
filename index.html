@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Various</title>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200&family=Montserrat:wght@100&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <script>
+        const news = [
+	        {
+				id: 1,
+                title: "Простой белорусский котенок стал младшим мяучным сотрудником",
+                text: "В Музее истории и культуры Новополоцка интересная жизнь: туда на службу приняли черно-белого котенка. " +
+                    "Конкурс на вакансию не открывали, пишут Витебские вести. Котенок просто пришел на крыльцо музея. Сотрудники решили, " +
+                    "что он хотел не только еды и тепла, но и знаний, потому что витрины с экспонатами изучал с неподдельным интересом.\n" +
+	                "<br>Кота называют «наш младший МЯУчный сотрудник». Уже три недели он ночует в теплом подвальчике, у него есть свое кресло, постоянное меню и игрушки. Всем бы нам такую научную карьеру!"
+            },
+	        {
+		        id: 2,
+		        title: "Мужчина из-за жажды напал на девушку и отобрал у нее пиво",
+		        text: "Недавно житель Гродно утром шел по улице. Вдруг он увидел девушку лет 20-ти, у нее в руках был пакет с бутылкой пива. " +
+                    "Мужчина, видимо, так ошалел от высокой температуры, что набросился на девушку и применил, как пишут на сайте милиции, " +
+                    "некоторые насильственные действия, не опасные для здоровья и жизни." +
+                    "<br>Берегите себя, ребята. На всякий случай: у нас был рейтинг томатного сока и рейтинг лучшего белорусского мороженого, не пропустите!\n" +
+			        "<br><br>А еще можете с помощью нашего теста проверить, какой вы алкоголик."
+	        },
+	        {
+		        id: 3,
+		        title: "Работница пекарни украла 10 булочек, чтобы ее наконец уволили",
+		        text: "В Вилейке живет и работает очень хорошая повариха. Такая хорошая, что ее отказывались увольнять из пекарни, где она работала, хотя она даже нашла себе замену.\n" +
+			        "Поэтому женщина пошла на радикальные меры: после рабочего дня она решила вынести из магазина 10 булочек и шесть пакетов-маек, пишет kraj.by. " +
+                    "Ее задержал охранник. Женщина сказала, что другого выхода она не видела: пошла на хищение, чтобы ее хоть так побыстрее уволили." +
+                    "<br>На женщину составили административный протокол по статье 10.5 Кодекса об административных правонарушениях. Санкции - штраф от 2 до 30 базовых величин или административный арест.\n" +
+			        "<br><br>А уволили беднягу или нет, так и непонятно."
+	        }
+        ]
+
+        const onloadFunctionsBundle = () => {
+	        onClickGenerateNumber()
+	        buildNewsSection(news)
+        }
+
+        const onClickGenerateNumber = () => {
+			document.querySelector('.button-holder > span').innerText = `${Math.floor(Math.random() * 101)}`
+        }
+        const mousemoveHandler = (e) => {
+	        document.querySelector('.positioning-holder > span').innerText = `X: ${e.x}, Y: ${e.y}`
+        }
+		const mouseclickHandler = (e) => {
+			if (e.which === 1) {
+				document.querySelector('.left-click').style.opacity = '1'
+			} else if (e.which === 3) document.querySelector('.right-click').style.opacity = '1'
+		}
+		const mouseReleaseHandler = () => {
+			document.querySelectorAll('.positioning-holder > img').forEach(node => node.style.opacity = '0')
+        }
+		const onClickShowText = () => {
+			document.querySelector('.hidden-text-holder > p').innerText =
+                document.querySelector('.hidden-text-holder > p').innerText === "" ?
+                "Не говорите, вы не можете этого знать. Это — гигант мысли, отец русской демократии и особа, приближенная к императору." : ""
+		}
+        const onClickToggleText = (id) => {
+	        document.querySelector('.toggle-text-field').innerText = id === '1' ?
+		        "Глаза того тyлyпа, котоpый из шкypы зайца вышел в гоpоде, где ночь настает, " +
+		        "когда над ним птенец пpолетает веpхом на хpомой блохе." : (id === '2' ?
+			        "Гоpод, где заяц бежал, на котоpый тень от оpла yпала, и пошел, кyда глаза глядят." :
+			        "Hасмеpть yбитый! Как пpыгнет, кyда глаза глядят, аж на тот беpег моpя, котоpое ни пеpелететь, ни пеpебежать," +
+			        " из котоpого тyлyп вышел, на котоpый тень от блохи yпала и зайца yбила, хоть заяц - не заяц, а оpел!")
+        }
+		const buildNewsSection = (posts) => {
+            let builtPosts = ``
+            const deleteButton = `<button class="remove" onclick={this.parentNode.remove()}><img src="https://img.icons8.com/material-sharp/24/null/delete-forever.png"/></button>`
+            posts.forEach(post => builtPosts += `<div id="${post.id}"><h3>${post.title}</h3>${deleteButton}${post.text}<hr></div>`)
+			document.querySelector('.news-section').innerHTML = builtPosts + `<button onclick={buildNewsSection(news)}>Restore news</button>`
+		}
+
+        const toggleProgressBar = (e) => {
+	        if (e.currentTarget.childNodes[1].style.width === '400px') {
+		        e.currentTarget.childNodes[1].style.width = '0px'
+	        } else {
+		        e.currentTarget.childNodes[1].style.width = `${+window.getComputedStyle(e.currentTarget.childNodes[1]).getPropertyValue("width").replace('px', '') + (400 * 0.05)}px`
+		        console.log(window.getComputedStyle(e.currentTarget.childNodes[1]).getPropertyValue("width"));
+	        }
+        }
+        addEventListener('mousemove', mousemoveHandler, false);
+		addEventListener('mousedown', mouseclickHandler, false);
+		addEventListener('mouseup', mouseReleaseHandler, false);
+    </script>
+</head>
+<body onload="onloadFunctionsBundle()" oncontextmenu="return false">
+    <div id="root">
+        <div class="wrapper">
+            <div class="button-holder">
+                Random number:<span></span>
+                <button onclick={onClickGenerateNumber()}>Generate random number</button>
+            </div>
+            <div class="positioning-holder">
+                <span>X: 0, Y: 0</span>
+                <img class="right-click" src="https://img.icons8.com/material/24/null/mouse-right-click.png"/>
+                <img class="left-click" src="https://img.icons8.com/material/24/null/mouse-left-click.png"/>
+            </div>
+            <div class="hidden-text-holder">
+                <button onclick={onClickShowText()}>Кто по-вашему этот мощный старик?</button>
+                <p></p>
+            </div>
+            <div class="toggle-text">
+                <div class="button-section">
+                    <button onclick={onClickToggleText(this.id)} id="1">Тулуп</button>
+                    <button onclick={onClickToggleText(this.id)} id="2">Город</button>
+                    <button onclick={onClickToggleText(this.id)} id="3">Заяц</button>
+                </div>
+                <div class="toggle-text-field">Глаза того тyлyпа, котоpый из шкypы зайца вышел в гоpоде, где ночь настает, когда над ним птенец пpолетает веpхом на хpомой блохе.</div>
+            </div>
+            <div class="news-section"></div>
+            <div onclick={toggleProgressBar(event)} class="progress-bar">
+                <div></div>
+                <span>Tap me...</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
