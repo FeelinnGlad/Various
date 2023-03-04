@@ -100,6 +100,10 @@ button:active {
 	border-radius: 0;
 	height: 40px;
 }
+.button-active {
+	background-color: #7baf5f;
+	color: #e3e3e3;
+}
 .button-section {
 	display: flex;
 	flex-direction: column;

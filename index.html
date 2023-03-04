@@ -60,6 +60,8 @@
                 "Не говорите, вы не можете этого знать. Это — гигант мысли, отец русской демократии и особа, приближенная к императору." : ""
 		}
         const onClickToggleText = (id) => {
+	        document.querySelectorAll('.button-section > button').forEach(button => button.classList = null)
+	        document.getElementById(id).className = 'button-active'
 	        document.querySelector('.toggle-text-field').innerText = id === '1' ?
 		        "Глаза того тyлyпа, котоpый из шкypы зайца вышел в гоpоде, где ночь настает, " +
 		        "когда над ним птенец пpолетает веpхом на хpомой блохе." : (id === '2' ?
